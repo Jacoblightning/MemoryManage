@@ -3,6 +3,7 @@ project(MemoryManage C)
 
 set(CMAKE_C_STANDARD 17)
 
+include_directories(include)
 add_subdirectory(src)
 
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
