@@ -3,7 +3,7 @@ project(MemoryManage C)
 
 set(CMAKE_C_STANDARD 17)
 
-message("Building from ${CMAKE_CURRENT_SOURCE_DIR}")
+message("Building from ${PROJECT_SOURCE_DIR}")
 
 include_directories(include)
 add_subdirectory(src)
