@@ -1,7 +1,7 @@
 #include <signal.h>
 #include <stdio.h>
 
-#include "../include/MemoryManage.h"
+#include "../include/MemoryManage/MemoryManage.h"
 
 #define error(message) fprintf(stderr, "%s-%d%s\n", __FILE__, __LINE__, message);
 

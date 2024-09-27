@@ -1,4 +1,4 @@
-#include "../include/MemoryManage.h"
+#include "../include/MemoryManage/MemoryManage.h"
 
 #include <unistd.h>
 #include <stdio.h>
