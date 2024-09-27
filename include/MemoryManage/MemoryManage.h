@@ -14,8 +14,8 @@ struct Device {
 };
 
 struct Map {
-    uint64_t start;
-    uint64_t end;
+    unsigned long long start;
+    unsigned long long end;
     uint64_t offset;
     uint64_t inodeID;
     char* mappedPath;
