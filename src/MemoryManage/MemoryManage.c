@@ -2,11 +2,10 @@
 #define _GNU_SOURCE // NOLINT(*-reserved-identifier)
 #include <sys/uio.h>
 #include <stdint.h>
-
-typedef pid_t process_t;
-
 #include <signal.h>
 #include <stdlib.h>
+
+typedef pid_t process_t;
 
 process_t openProcess(const pid_t pid) {
     // Checking for the existence of a process.
