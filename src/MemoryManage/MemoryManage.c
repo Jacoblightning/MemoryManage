@@ -1,4 +1,9 @@
-#include "../include/MemoryManage.h"
+// Enable GNU Extensions
+#define _GNU_SOURCE // NOLINT(*-reserved-identifier)
+#include <sys/uio.h>
+#include <stdint.h>
+
+typedef pid_t process_t;
 
 #include <signal.h>
 #include <stdlib.h>

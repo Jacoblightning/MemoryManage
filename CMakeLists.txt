@@ -1,38 +1,15 @@
 cmake_minimum_required(VERSION 3.29)
-project(MemoryManage C)
-
-include(CTest)
+project(src/MemoryManage C)
 
 set(CMAKE_C_STANDARD 17)
 
-add_library(MemoryManageStatic STATIC MemoryManage/MemoryManage.c
-        include/MemoryManage.h)
-add_library(MemoryManageShared SHARED MemoryManage/MemoryManage.c
-        include/MemoryManage.h)
+add_subdirectory(src)
 
-# Tests
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+    # We're in the root, define additional targets for developers.
+    option(MemoryManage_BUILD_TESTS "whether or not tests should be built" ON)
 
-add_executable(MemoryManageStaticTester test/testSame.c)
-add_executable(MemoryManageDynamicTester test/testSame.c)
-
-target_link_libraries(MemoryManageStaticTester MemoryManageStatic)
-target_link_libraries(MemoryManageDynamicTester MemoryManageShared)
-
-
-add_executable(MemoryManageOtherStaticTester test/testOther.c)
-add_executable(MemoryManageOtherStaticTested test/testOtherTarget.c)
-add_executable(MemoryManageOtherDynamicTester test/testOther.c)
-add_executable(MemoryManageOtherDynamicTested test/testOtherTarget.c)
-
-target_link_libraries(MemoryManageOtherStaticTester MemoryManageStatic)
-target_link_libraries(MemoryManageOtherDynamicTester MemoryManageShared)
-
-
-
-add_test(NAME TestSelfStatic COMMAND $<TARGET_FILE_NAME:MemoryManageStaticTester>)
-add_test(NAME TestSelfDynamic COMMAND $<TARGET_FILE_NAME:MemoryManageDynamicTester>)
-
-add_test(
-        NAME TestOtherStatic COMMAND $<TARGET_FILE_NAME:MemoryManageOtherStaticTester>
-        $<TARGET_FILE_DIR:MemoryManageOtherStaticTested>/$<TARGET_FILE_NAME:MemoryManageOtherStaticTested>
-)
+    if(MemoryManage_BUILD_TESTS)
+        add_subdirectory(test)
+    endif()
+endif()
