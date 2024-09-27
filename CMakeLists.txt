@@ -3,16 +3,25 @@ project(MemoryManage C)
 
 set(CMAKE_C_STANDARD 17)
 
+include(CMakeDependentOption)
+
+if (EXISTS ${CMAKE_SOURCE_DIR}/.debugging)
+    set(BUILD_TESTS ON)
+endif ()
+
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+    option(BUILD_TESTS "Whether or not tests should be built" OFF)
+endif ()
+cmake_dependent_option(BUILD_STATIC_LIBS "Build the static library" OFF "NOT BUILD_TESTS" ON)
+cmake_dependent_option(BUILD_SHARED_LIBS "Build the shared library" ON "BUILD_STATIC_LIBS;NOT BUILD_TESTS" ON)
+
 message("Building from ${PROJECT_SOURCE_DIR}")
 
 include_directories(include)
 add_subdirectory(src)
 
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-    # We're in the root, define additional targets for developers.
-    option(MemoryManage_BUILD_TESTS "whether or not tests should be built" ON)
-
-    if(MemoryManage_BUILD_TESTS)
+    if(BUILD_TESTS)
         enable_testing()
         add_subdirectory(test)
     endif()

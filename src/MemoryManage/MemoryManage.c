@@ -3,6 +3,7 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <stdio.h>
 #include <string.h>
 
 
@@ -143,4 +144,166 @@ ssize_t fillMemoryWithByteByStartAndEnd(
         endAddress - startAddress,
         byteToFill
         );
+}
+
+/**
+ * Retrieves the memory maps for a given process.
+ *
+ * @param process The process ID for which to retrieve memory maps.
+ * @return A pointer to a ProcessMaps structure containing the memory maps,
+ *         or NULL if an error occurred. The caller is responsible for freeing
+ *         the returned structure using freeMap().
+ */
+struct ProcessMaps* getProcessMaps(const process_t process) {
+    // ReSharper disable once CppDFAMemoryLeak
+    // Reasonably sure that there is no memory leak here.
+    struct ProcessMaps *maps = malloc(sizeof(struct ProcessMaps));
+    if (maps == NULL) {
+        perror("malloc");
+        return NULL; // Early return if allocation fails
+    }
+
+    char *procPath = malloc(19);
+    if (procPath == NULL) {
+        perror("malloc");
+        free(maps); // Free previously allocated memory
+        return NULL; // Early return if allocation fails
+    }
+
+    sprintf(procPath, "/proc/%d/maps", process);
+    FILE* file = fopen(procPath, "r");
+    free(procPath); // Free procPath after using it
+    if (file == NULL) {
+        perror("fopen");
+        free(maps); // Free previously allocated memory
+        return NULL; // Early return if fopen fails
+    }
+
+    int lines = 0;
+    while (!feof(file)) {
+        const int ch = fgetc(file);
+        if (ch == '\n') {
+            lines++;
+        }
+    }
+    rewind(file);
+
+    // Allocate memory for maps->maps
+    maps->maps = calloc(lines, sizeof(struct Map));
+    if (maps->maps == NULL) {
+        perror("calloc");
+        free(maps); // Free previously allocated memory
+        fclose(file); // Close the file
+        return NULL; // Early return if allocation fails
+    }
+
+    maps->mapCount = lines;
+    int line = 0;
+    char buffer[2048];
+    while (fgets(buffer, sizeof(buffer), file)) {
+        struct Map *map = malloc(sizeof(struct Map));
+        struct Device *device = malloc(sizeof(struct Device));
+
+        if (map == NULL || device == NULL) {
+            perror("malloc");
+            // Free previously allocated maps
+            for (int i = 0; i < line; i++) {
+                free(maps->maps[i]->deviceID);
+                free(maps->maps[i]->mappedPath);
+                free(maps->maps[i]);
+            }
+            free(maps->maps);
+            free(maps);
+            fclose(file);
+            return NULL; // Early return if allocation fails
+        }
+
+        map->deviceID = device;
+
+        // Initialize permissions and read from buffer
+        map->permissions = 0;
+        char perms[5];
+        sscanf(buffer, "%llx-%llx %s %lx %hhx:%hhx %ld %ms", // NOLINT(*-err34-c)
+               &map->start,
+               &map->end,
+               perms,
+               &map->offset,
+               &map->deviceID->major,
+               &map->deviceID->minor,
+               &map->inodeID,
+               &map->mappedPath);
+
+        // Set permissions based on the read string
+        if (perms[0] == 'r') map->permissions |= Read;
+        if (perms[1] == 'w') map->permissions |= Write;
+        if (perms[2] == 'x') map->permissions |= Execute;
+        if (perms[3] == 'p') map->permissions |= Private;
+        if (perms[3] == 's') map->permissions |= Shared;
+
+        maps->maps[line] = map;
+        line++;
+    }
+
+    fclose(file); // Close the file after reading
+    return maps; // Return the allocated ProcessMaps structure
+}
+
+void freeMap(struct ProcessMaps *map) {
+    if (map == NULL) return; // Check for NULL pointer
+
+    for (int i = 0; i < map->mapCount; i++) {
+        if (map->maps[i] != NULL) { // Check if the map entry is not NULL
+            free(map->maps[i]->deviceID); // Free the deviceID
+            free(map->maps[i]->mappedPath); // Free the mappedPath
+            free(map->maps[i]); // Free the Map structure itself
+        }
+    }
+    free(map->maps); // Free the array of Map structures
+    free(map); // Free the ProcessMaps structure
+}
+
+void* searchForMemory(
+    const process_t process,
+    const void* needle,
+    const uint64_t needleLength,
+    const uint64_t startAddress,
+    const uint64_t endAddress
+    ) {
+    if (startAddress == 0 && endAddress == 0) {
+        // ReSharper disable once CppDFAMemoryLeak
+        // Once again, there is no memory leak here.
+        struct ProcessMaps *maps = getProcessMaps(process);
+
+        if (maps == NULL) {
+            fprintf(stderr, "Failed to get process maps\n");
+            return NULL; // Handle the error appropriately
+        }
+
+        printf("Number of maps: %lu\n", maps->mapCount);
+
+        freeMap(maps);
+        return NULL;
+    }
+    const uint64_t size = endAddress - startAddress;
+    void* buffer = malloc(size);
+    if (buffer == NULL) {
+        perror("malloc");
+        return NULL;
+    }
+    if (readMemoryByLength(process, startAddress, size, buffer)==-1) {
+        perror("readMemoryByLength");
+        free(buffer);
+        return NULL;
+    }
+    const void* result = memmem(buffer, size, needle, needleLength);
+    if(result == NULL) {
+        free(buffer);
+        return NULL;
+    }
+    // Some fun pointer arithmetic
+    // ReSharper disable once CppDFANullDereference
+    // No, actually this pointer cannot be null.
+    void* toret = (void*)startAddress+(result-buffer);
+    free(buffer);
+    return toret;
 }
