@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20240925-2229-Experimental"
+	Name="(empty)"
+	Generator="ctest-3.30.3"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="Linux"
+	Hostname="jacobs-pc"
+	OSRelease="6.11.0-zen1-1-zen"
+	OSVersion="#1 ZEN SMP PREEMPT_DYNAMIC Sun, 15 Sep 2024 19:32:27 +0000"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="23"
+	ModelID="24"
+	ProcessorCacheSize="512"
+	NumberOfLogicalCPU="4"
+	NumberOfPhysicalCPU="2"
+	TotalVirtualMemory="4095"
+	TotalPhysicalMemory="13895"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="2363.25"
+	>
+	<Testing>
+		<StartDateTime>Sep 25 18:29 EDT</StartDateTime>
+		<StartTestTime>1727303386</StartTestTime>
+		<TestList/>
+		<EndDateTime>Sep 25 18:29 EDT</EndDateTime>
+		<EndTestTime>1727303386</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>
