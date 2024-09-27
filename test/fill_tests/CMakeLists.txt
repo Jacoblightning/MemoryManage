@@ -1,0 +1,9 @@
+add_executable(MemoryManageOtherDynamicWriteByteFill testSelfMemoryByteFill.c)
+add_executable(MemoryManageOtherStaticWriteByteFill testSelfMemoryByteFill.c)
+
+target_link_libraries(MemoryManageOtherStaticWriteByteFill MemoryManageStatic)
+target_link_libraries(MemoryManageOtherDynamicWriteByteFill MemoryManageShared)
+
+add_test(NAME TestSelfStaticByteFill COMMAND $<TARGET_FILE:MemoryManageOtherStaticWriteByteFill>)
+add_test(NAME TestSelfDynamicByteFill COMMAND $<TARGET_FILE:MemoryManageOtherDynamicWriteByteFill>)
+

@@ -1,7 +1,7 @@
+#include <MemoryManage/MemoryManage.h>
+
 #include <signal.h>
 #include <stdio.h>
-
-#include "../include/MemoryManage/MemoryManage.h"
 
 #define error(message) fprintf(stderr, "%s-%d%s\n", __FILE__, __LINE__, message);
 
@@ -40,7 +40,11 @@ int main(const int argc, char **argv) {
     printf("Attempting to read memory at address: %lld\n", memory);
     fflush(stdout);
 
-    readMemoryByLength(process, memory, sizeof result, &result);
+    if (readMemoryByLength(process, memory, sizeof result, &result)==-1) {
+        perror(NULL);
+        kill(process, SIGKILL);
+        return 1;
+    }
     if (result != 8675309) {
         fprintf(stderr, "Reading memory Failed. Value is %d", result);
         return 1;
