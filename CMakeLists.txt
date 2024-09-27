@@ -10,6 +10,7 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     option(MemoryManage_BUILD_TESTS "whether or not tests should be built" ON)
 
     if(MemoryManage_BUILD_TESTS)
+        enable_testing()
         add_subdirectory(test)
     endif()
 endif()

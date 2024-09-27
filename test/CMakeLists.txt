@@ -1,5 +1,3 @@
-include(CTest)
-
 add_executable(MemoryManageStaticTester testSame.c)
 add_executable(MemoryManageDynamicTester testSame.c)
 
