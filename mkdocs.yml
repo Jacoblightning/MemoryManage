@@ -1,0 +1,22 @@
+site_name: MemoryManager
+nav:
+  - Home: index.md
+  - Installation: installing.md
+  - Usage:
+      - QuickStart: quickstart.md
+  - Api Docs: apidocs.md
+  - About:
+    - License: license.md
+theme: readthedocs
+markdown_extensions:
+  - toc:
+      permalink: true
+repo_url: https://github.com/Jacoblightning/MemoryManager
+edit_uri: blob/main/docs/
+site_author: Jacob Freeman
+copyright: None
+validation:
+  omitted_files: warn
+  absolute_links: warn  # Or 'relative_to_docs' - new in MkDocs 1.6
+  unrecognized_links: warn
+  anchors: warn  # New in MkDocs 1.6
