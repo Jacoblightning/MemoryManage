@@ -78,7 +78,7 @@ ssize_t fillMemoryWithByteByStartAndEnd(
 struct ProcessMaps* getProcessMaps(const process_t process);
 void freeMap(struct ProcessMaps *map);
 
-void* searchForMemory(
+uint64_t searchForMemory(
     process_t process,
     const void* needle,
     uint64_t needleLength,

@@ -159,13 +159,11 @@ struct ProcessMaps* getProcessMaps(const process_t process) {
     // Reasonably sure that there is no memory leak here.
     struct ProcessMaps *maps = malloc(sizeof(struct ProcessMaps));
     if (maps == NULL) {
-        perror("malloc");
         return NULL; // Early return if allocation fails
     }
 
     char *procPath = malloc(19);
     if (procPath == NULL) {
-        perror("malloc");
         free(maps); // Free previously allocated memory
         return NULL; // Early return if allocation fails
     }
@@ -174,7 +172,6 @@ struct ProcessMaps* getProcessMaps(const process_t process) {
     FILE* file = fopen(procPath, "r");
     free(procPath); // Free procPath after using it
     if (file == NULL) {
-        perror("fopen");
         free(maps); // Free previously allocated memory
         return NULL; // Early return if fopen fails
     }
@@ -191,7 +188,6 @@ struct ProcessMaps* getProcessMaps(const process_t process) {
     // Allocate memory for maps->maps
     maps->maps = calloc(lines, sizeof(struct Map));
     if (maps->maps == NULL) {
-        perror("calloc");
         free(maps); // Free previously allocated memory
         fclose(file); // Close the file
         return NULL; // Early return if allocation fails
@@ -205,7 +201,6 @@ struct ProcessMaps* getProcessMaps(const process_t process) {
         struct Device *device = malloc(sizeof(struct Device));
 
         if (map == NULL || device == NULL) {
-            perror("malloc");
             // Free previously allocated maps
             for (int i = 0; i < line; i++) {
                 free(maps->maps[i]->deviceID);
@@ -262,7 +257,7 @@ void freeMap(struct ProcessMaps *map) {
     free(map); // Free the ProcessMaps structure
 }
 
-void* searchForMemory(
+uint64_t searchForMemory(
     const process_t process,
     const void* needle,
     const uint64_t needleLength,
@@ -276,34 +271,32 @@ void* searchForMemory(
 
         if (maps == NULL) {
             fprintf(stderr, "Failed to get process maps\n");
-            return NULL; // Handle the error appropriately
+            return 0; // Handle the error appropriately
         }
 
         printf("Number of maps: %lu\n", maps->mapCount);
 
         freeMap(maps);
-        return NULL;
+        return 0;
     }
     const uint64_t size = endAddress - startAddress;
     void* buffer = malloc(size);
     if (buffer == NULL) {
-        perror("malloc");
-        return NULL;
+        return 0;
     }
     if (readMemoryByLength(process, startAddress, size, buffer)==-1) {
-        perror("readMemoryByLength");
         free(buffer);
-        return NULL;
+        return 0;
     }
     const void* result = memmem(buffer, size, needle, needleLength);
     if(result == NULL) {
         free(buffer);
-        return NULL;
+        return 0;
     }
     // Some fun pointer arithmetic
     // ReSharper disable once CppDFANullDereference
     // No, actually this pointer cannot be null.
-    void* toret = (void*)startAddress+(result-buffer);
+    const uint64_t toret = startAddress + ((uint64_t)result - (uint64_t)buffer);
     free(buffer);
     return toret;
 }

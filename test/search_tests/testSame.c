@@ -9,7 +9,7 @@ int main() {
     int secret = 8675309;
     const int needle = 8675309;
     const process_t mypid = openProcess(getpid());
-    const void* result = searchForMemory(
+    const void* result = (void*)searchForMemory(
         mypid,
         &needle,
         sizeof needle,

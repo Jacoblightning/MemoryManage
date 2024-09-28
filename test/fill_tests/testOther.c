@@ -6,6 +6,8 @@
 
 #define error(message) fprintf(stderr, "%s-%d%s\n", __FILE__, __LINE__, message);
 
+
+
 int main(const int argc, char **argv) {
     if (argc != 2) {
         error("This was a CMake failure and not a program failure.\n");
@@ -48,12 +50,12 @@ int main(const int argc, char **argv) {
     printf("Memory written. Waiting for OK from child.\n");
     fflush(stdout);
     char result[3]; // 1,\n,\0
-    if (fgets(buffer, sizeof buffer, target) == NULL) {
+    if (fgets(result, sizeof result, target) == NULL) {
         error("Failed to read from command output.\n");
         return 1;
     }
     kill(process, SIGKILL);
-    if (buffer[0] != '1') {
+    if (result[0] != '1') {
         fprintf(stderr, "Did not get OK from child process.\n");
         return 1;
     }
