@@ -23,7 +23,9 @@ markdown_extensions:
 repo_url: https://github.com/Jacoblightning/MemoryManage
 edit_uri: edit/main/docs/
 site_author: Jacob Freeman
-copyright: 'Copyright: None'
+copyright: >
+  Copyright &copy: NONE
+  <a href="#__consent">Change cookie settings</a>
 validation:
   omitted_files: warn
   absolute_links: warn  # Or 'relative_to_docs' - new in MkDocs 1.6
@@ -80,6 +82,7 @@ extra:
       We use cookies to remember your preferences. That's it. 
       (Even if you enable google analytics cookies.
       It does nothing because I couldn't figure out how to disable it.)
+      You can also change your choice here anytime by clicking the button in the footer.
     cookies:
       analytics:
         name: Google Analytics
