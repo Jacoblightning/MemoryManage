@@ -6,7 +6,10 @@ set(U2 "")
 if (BUILD_STATIC_LIBS)
     set(U1 "MemoryManageStatic")
     add_library(MemoryManageStatic STATIC ${SOURCES})
-    set_target_properties(MemoryManageStatic PROPERTIES PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include/MemoryManage/MemoryManage.h)
+    set_target_properties(MemoryManageStatic PROPERTIES
+            PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include/MemoryManage/MemoryManage.h
+            OUTPUT_NAME MemoryManage
+    )
 
     target_include_directories(MemoryManageStatic PUBLIC
             $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
@@ -17,7 +20,10 @@ if (BUILD_SHARED_LIBS)
     set(U2 "MemoryManageShared")
     add_library(MemoryManageShared SHARED ${SOURCES})
 
-    set_target_properties(MemoryManageShared PROPERTIES PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include/MemoryManage/MemoryManage.h)
+    set_target_properties(MemoryManageShared PROPERTIES
+            PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include/MemoryManage/MemoryManage.h
+            OUTPUT_NAME MemoryManage
+    )
 
 
     target_include_directories(MemoryManageShared PUBLIC

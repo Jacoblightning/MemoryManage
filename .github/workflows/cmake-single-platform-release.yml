@@ -49,11 +49,24 @@ jobs:
         subject-path: '${{github.workspace}}/build/src/libMemoryManage*'
 
 
-    - name: Upload a Build Artifact
+    - name: Upload Static Build Artifact
       uses: actions/upload-artifact@v4.4.0
       with:
-        name: 'LibMemoryManage-Linux_${{ runner.arch }}-AfterCommit_${{github.sha}}'
-        path: '${{github.workspace}}/build/src/libMemoryManage*'
+        name: 'LibMemoryManageSTATIC-Linux_${{ runner.arch }}'
+        path: '${{github.workspace}}/build/src/libMemoryManage.a'
         retention-days: 90
+    - name: Upload Dynamic Build Artifact
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: 'LibMemoryManageDYNAMIC-Linux_${{ runner.arch }}'
+        path: '${{github.workspace}}/build/src/libMemoryManage.so'
+        retention-days: 90
+    - name: Upload Both Build Artifact
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: 'LibMemoryManage-STATIC_AND_DYNAMIC-Linux_${{ runner.arch }}'
+        path: '${{github.workspace}}/build/src/libMemoryManage.*'
+        retention-days: 90
+
 
 
