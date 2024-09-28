@@ -5,14 +5,17 @@
 #include <sys/uio.h>
 #include <stdint.h>
 
+// A typedef that holds a PID, should be acquired from openProcess function
 typedef pid_t process_t;
 
+// A struct for holding a deviceID
 // TODO: Maybe rework this system in future
 struct Device {
     unsigned char major;
     unsigned char minor;
 };
 
+// A struct used for the memory map of a process.
 struct Map {
     unsigned long long start;
     unsigned long long end;
@@ -23,11 +26,13 @@ struct Map {
     struct Device* deviceID;
 };
 
+// A struct for holding an array of Maps
 struct ProcessMaps {
     struct Map** maps;
     size_t mapCount;
 };
 
+// The flags for permissions on mapped memory regions
 enum PermissionFlags {
     None     = 0,
     Read     = (1 << 0),

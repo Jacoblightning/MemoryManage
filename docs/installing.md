@@ -1,6 +1,5 @@
-# Installing
-### There are a few methods for installing.
-#### CMake FetchContent (Recommended)
+# Installation
+## CMake FetchContent (Recommended)
 You can install directly from a CMake project by adding the following to your CMakeLists.txt
 ```cmake
 include(FetchContent)
@@ -20,7 +19,7 @@ Remember to include the header:
 ```c++
 #include <MemoryManage/MemoryManage.h>
 ```
-#### Installation from GitHub:
+## Installation from GitHub:
 You can install from the latest GitHub commit by running the following in your shell:
 ```shell
 git clone https://github.com/Jacoblightning/MemoryManager
@@ -31,7 +30,7 @@ cmake ..
 cmake --build .
 sudo cmake --install .
 ```
-#### Binary from GitHub actions (x64 only)
+## Binary from GitHub actions (x64 only)
 You can use a binary from GitHub actions in two ways:
 - Nightly.link (Recommended):
     - Use [this nightly.link url](https://nightly.link/Jacoblightning/MemoryManager/workflows/cmake-single-platform-release/main) and download the binary you want.
@@ -39,7 +38,7 @@ You can use a binary from GitHub actions in two ways:
   1. Go to [the actions page for the publisher action](https://github.com/Jacoblightning/MemoryManager/actions/workflows/cmake-single-platform-release.yml)
   2. Click on the latest action (the top one)
   3. Scroll to actions and click the one you want.
-#### Binary from GitHub Releases (Not Recommended)
+## Binary from GitHub Releases (Not Recommended)
 You can use a binary from GitHub releases, but I can't promise how up-to-date it will be.
 1. Go to the [latest release page](https://github.com/Jacoblightning/MemoryManager/releases/latest)
 2. Download the binary you want.

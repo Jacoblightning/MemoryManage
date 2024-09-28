@@ -4,8 +4,16 @@ nav:
   - Installation: installing.md
   - Usage:
       - QuickStart: quickstart.md
-  - Api Docs: apidocs.md
+      - User Guide: userguide.md
+  - Api Docs:
+      - Main: apidocs.md
+      - Functions: api/functions.md
+      - Enums: api/enums.md
+      - Structs: api/structs.md
+      - Typedefs: api/typedefs.md
+      - FunctionsImplementations: api/functiondefs.md
   - About:
+    - Stats: stats.md
     - License: license.md
 theme: readthedocs
 markdown_extensions:

@@ -1,12 +1,9 @@
-#include <MemoryManage/MemoryManage.h>
+# These are the definitions of all the functions in this project.
 
-#include <signal.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
+<!-- We use c++ language here because annoyingly my IDE (CLion) does not consider C a language. -->
 
-
+## openProcess
+```c++
 process_t openProcess(const pid_t pid) {
     // Checking for the existence of a process.
     // Killing with 0 just checks if it exists.
@@ -19,7 +16,9 @@ process_t openProcess(const pid_t pid) {
     // Error: return -1.
     return -1;
 }
-
+```
+## readMemoryByLength
+```c++
 ssize_t readMemoryByLength(
     const process_t process,
     const uint64_t startAddress,
@@ -48,7 +47,9 @@ ssize_t readMemoryByLength(
     }
     return result;
 }
-
+```
+## readMemoryByStartAndEnd
+```c++
 ssize_t readMemoryByStartAndEnd(
     const process_t process,
     const uint64_t startAddress,
@@ -64,7 +65,9 @@ ssize_t readMemoryByStartAndEnd(
         buffer
         );
 }
-
+```
+## writeMemory
+```c++
 ssize_t writeMemory(
     const process_t process,
     const uint64_t startAddress,
@@ -94,7 +97,9 @@ ssize_t writeMemory(
     return result;
 
 }
-
+```
+## fillMemoryWithByteByLength
+```c++
 ssize_t fillMemoryWithByteByLength(
     const process_t process,
     const uint64_t startAddress,
@@ -129,7 +134,9 @@ ssize_t fillMemoryWithByteByLength(
     }
     return result;
 }
-
+```
+## fillMemoryWithByteByStartAndEnd
+```c++
 ssize_t fillMemoryWithByteByStartAndEnd(
     const process_t process,
     const uint64_t startAddress,
@@ -145,15 +152,55 @@ ssize_t fillMemoryWithByteByStartAndEnd(
         byteToFill
         );
 }
+```
+## searchForMemory
+```c++
+uint64_t searchForMemory(
+    const process_t process,
+    const void* needle,
+    const uint64_t needleLength,
+    const uint64_t startAddress,
+    const uint64_t endAddress
+    ) {
+    if (startAddress == 0 && endAddress == 0) {
+        // ReSharper disable once CppDFAMemoryLeak
+        // Once again, there is no memory leak here.
+        struct ProcessMaps *maps = getProcessMaps(process);
 
-/**
- * Retrieves the memory maps for a given process.
- *
- * @param process The process ID for which to retrieve memory maps.
- * @return A pointer to a ProcessMaps structure containing the memory maps,
- *         or NULL if an error occurred. The caller is responsible for freeing
- *         the returned structure using freeMap().
- */
+        if (maps == NULL) {
+            fprintf(stderr, "Failed to get process maps\n");
+            return 0; // Handle the error appropriately
+        }
+
+        printf("Number of maps: %lu\n", maps->mapCount);
+
+        freeMap(maps);
+        return 0;
+    }
+    const uint64_t size = endAddress - startAddress;
+    void* buffer = malloc(size);
+    if (buffer == NULL) {
+        return 0;
+    }
+    if (readMemoryByLength(process, startAddress, size, buffer)==-1) {
+        free(buffer);
+        return 0;
+    }
+    const void* result = memmem(buffer, size, needle, needleLength);
+    if(result == NULL) {
+        free(buffer);
+        return 0;
+    }
+    // Some fun pointer arithmetic
+    // ReSharper disable once CppDFANullDereference
+    // No, actually this pointer cannot be null.
+    const uint64_t toret = startAddress + ((uint64_t)result - (uint64_t)buffer);
+    free(buffer);
+    return toret;
+}
+```
+## getProcessMaps
+```c++
 struct ProcessMaps* getProcessMaps(const process_t process) {
     // ReSharper disable once CppDFAMemoryLeak
     // Reasonably sure that there is no memory leak here.
@@ -242,7 +289,9 @@ struct ProcessMaps* getProcessMaps(const process_t process) {
     fclose(file); // Close the file after reading
     return maps; // Return the allocated ProcessMaps structure
 }
-
+```
+## freeMap
+```c++
 void freeMap(struct ProcessMaps *map) {
     if (map == NULL) return; // Check for NULL pointer
 
@@ -256,47 +305,4 @@ void freeMap(struct ProcessMaps *map) {
     free(map->maps); // Free the array of Map structures
     free(map); // Free the ProcessMaps structure
 }
-
-uint64_t searchForMemory(
-    const process_t process,
-    const void* needle,
-    const uint64_t needleLength,
-    const uint64_t startAddress,
-    const uint64_t endAddress
-    ) {
-    if (startAddress == 0 && endAddress == 0) {
-        // ReSharper disable once CppDFAMemoryLeak
-        // Once again, there is no memory leak here.
-        struct ProcessMaps *maps = getProcessMaps(process);
-
-        if (maps == NULL) {
-            fprintf(stderr, "Failed to get process maps\n");
-            return 0; // Handle the error appropriately
-        }
-
-        printf("Number of maps: %lu\n", maps->mapCount);
-
-        freeMap(maps);
-        return 0;
-    }
-    const uint64_t size = endAddress - startAddress;
-    void* buffer = malloc(size);
-    if (buffer == NULL) {
-        return 0;
-    }
-    if (readMemoryByLength(process, startAddress, size, buffer)==-1) {
-        free(buffer);
-        return 0;
-    }
-    const void* result = memmem(buffer, size, needle, needleLength);
-    if(result == NULL) {
-        free(buffer);
-        return 0;
-    }
-    // Some fun pointer arithmetic
-    // ReSharper disable once CppDFANullDereference
-    // No, actually this pointer cannot be null.
-    const uint64_t toret = startAddress + ((uint64_t)result - (uint64_t)buffer);
-    free(buffer);
-    return toret;
-}
+```

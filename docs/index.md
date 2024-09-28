@@ -1,7 +1,8 @@
 # MemoryManage
-## A C library for managing the memory of other processes in linux
-### If you are new here, refer to [Installing](installing.md) and then head to [Quick Start](quickstart.md)
+A C library for managing the memory of other processes in linux
 
-### For the api docs, see [here](apidocs.md)
+If you are new here, refer to [Installing](installing.md) and then head to [Quick Start](quickstart.md)
 
-### Check out our awesome [license](license.md), [the unlicense](https://unlicense.org/)
+For the api docs, see [here](apidocs.md)
+
+Check out our awesome [license](license.md), [the unlicense](https://unlicense.org/)

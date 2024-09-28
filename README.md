@@ -1,5 +1,9 @@
 # MemoryManager
-A C library for easy memory management of other processes. Could be used for process hacking and other fun things.
+
+[![Documentation Status](https://readthedocs.org/projects/memorymanage/badge/?version=latest)](https://memorymanage.readthedocs.io/en/latest/?badge=latest)
+
+## We (I) recommend you look at the online docs instead. They are much more detailed. You can view them [Here](https://memorymanage.readthedocs.io)
+### A C library for easy memory management of other processes. Could be used for process hacking and other fun things.
 # Installation
 ## Another CMake Project (Recommended)
 ##### Use FetchContent:
