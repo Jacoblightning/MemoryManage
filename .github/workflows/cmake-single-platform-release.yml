@@ -52,7 +52,7 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.4.0
       with:
-        name: 'LibMemoryManage-Linux_${{ RUNNER_ARCH }}-AfterCommit_${{github.sha}}'
+        name: 'LibMemoryManage-Linux_${{ runner.arch }}-AfterCommit_${{github.sha}}'
         path: '${{github.workspace}}/build/src/libMemoryManage*'
         retention-days: 90
 
