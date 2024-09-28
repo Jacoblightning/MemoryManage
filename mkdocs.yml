@@ -94,4 +94,5 @@ plugins:
   - tags:
       tags_file: tags.md
 
-
+exclude_docs: |
+  /requirements.txt
