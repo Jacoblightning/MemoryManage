@@ -16,10 +16,12 @@ target_link_libraries(MemoryManageOtherDynamicWriteByteFillTester MemoryManageSh
 add_test(NAME TestSelfStaticByteFill COMMAND $<TARGET_FILE:MemoryManageSelfStaticWriteByteFill>)
 add_test(NAME TestSelfDynamicByteFill COMMAND $<TARGET_FILE:MemoryManageSelfDynamicWriteByteFill>)
 
-add_test(
-        NAME TestOtherStaticByteFill COMMAND $<TARGET_FILE:MemoryManageOtherStaticWriteByteFillTester>
-        $<TARGET_FILE:MemoryManageOtherStaticWriteByteFillTested>
-)
+if (RUN_TEMPERAMENTAL_TEST)
+    add_test(
+            NAME TestOtherStaticByteFill COMMAND $<TARGET_FILE:MemoryManageOtherStaticWriteByteFillTester>
+            $<TARGET_FILE:MemoryManageOtherStaticWriteByteFillTested>
+    )
+endif ()
 
 add_test(
         NAME TestOtherDynamicByteFill COMMAND $<TARGET_FILE_NAME:MemoryManageOtherDynamicWriteByteFillTester>

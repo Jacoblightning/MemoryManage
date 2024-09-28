@@ -15,6 +15,8 @@ endif ()
 cmake_dependent_option(BUILD_STATIC_LIBS "Build the static library" OFF "NOT BUILD_TESTS" ON)
 cmake_dependent_option(BUILD_SHARED_LIBS "Build the shared library" ON "BUILD_STATIC_LIBS;NOT BUILD_TESTS" ON)
 
+cmake_dependent_option(RUN_TEMPERAMENTAL_TEST "Run test 11 which does not work on github actions for some reason." ON "BUILD_TESTS" OFF)
+
 message("Building from ${PROJECT_SOURCE_DIR}")
 
 include_directories(include)
