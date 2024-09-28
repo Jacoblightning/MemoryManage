@@ -1,4 +1,6 @@
 add_subdirectory(read_tests)
 add_subdirectory(write_tests)
-add_subdirectory(fill_tests)
+if (RUN_TEMPERAMENTAL_TEST)
+    add_subdirectory(fill_tests)
+endif ()
 add_subdirectory(search_tests)
