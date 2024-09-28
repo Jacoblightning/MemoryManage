@@ -6,25 +6,92 @@ nav:
       - QuickStart: quickstart.md
       - User Guide: userguide.md
   - Api Docs:
-      - Main: apidocs.md
+      - apidocs.md
       - Functions: api/functions.md
       - Enums: api/enums.md
       - Structs: api/structs.md
       - Typedefs: api/typedefs.md
       - FunctionsImplementations: api/functiondefs.md
+  - Tags: tags.md
   - About:
     - Stats: stats.md
     - License: license.md
-theme: readthedocs
+
 markdown_extensions:
   - toc:
       permalink: true
 repo_url: https://github.com/Jacoblightning/MemoryManager
-edit_uri: blob/main/docs/
+edit_uri: edit/main/docs/
 site_author: Jacob Freeman
-copyright: None
+copyright: 'Copyright: None'
 validation:
   omitted_files: warn
   absolute_links: warn  # Or 'relative_to_docs' - new in MkDocs 1.6
   unrecognized_links: warn
   anchors: warn  # New in MkDocs 1.6
+
+theme:
+  logo: images/logo.png
+  favicon: images/logo.png
+  name: material
+  icon:
+    edit: material/pencil
+    view: material/eye
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  # Yes, I realize a few of these are sponsors only.
+  features:
+    - toc.follow
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.path
+    - navigation.prune
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.action.edit
+    - content.action.view
+
+
+
+extra:
+  consent:
+    actions:
+      - accept
+      - manage # (1)!
+      - reject
+    title: Cookie consent
+    description: >- # (1)!
+      We use cookies to remember your preferences. That's it. 
+      (Even if you enable google analytics cookies.
+      It does nothing because I couldn't figure out how to disable it.)
+    cookies:
+      analytics:
+        name: Google Analytics
+        checked: false
+  tags:
+    API: api
+    UserDocs: user
+
+plugins:
+  - search
+  - privacy
+  - tags:
+      tags_file: tags.md
+
+

@@ -1,3 +1,7 @@
+---
+tags:
+  - API
+---
 # These are the definitions of all the functions in this project.
 
 <!-- We use c++ language here because annoyingly my IDE (CLion) does not consider C a language. -->

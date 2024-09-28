@@ -1,3 +1,7 @@
+---
+tags:
+  - UserDocs
+---
 # Very Quick Start
 ### If you have not yet, head to [Installation](installing.md) to install MemoryManage.
 ### The following examples are written in C. It is assumed that you have a basic understanding.
@@ -9,4 +13,4 @@
 ## Write Memory
 `writeMemory(<process>, <startaddress>, <buffer>, <buffer length>)`
 
-### For more info, see the [User Guide](userguide.md)
+## For more info, see the [User Guide](userguide.md)

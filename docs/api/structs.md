@@ -1,3 +1,7 @@
+---
+tags:
+  - API
+---
 # The APIdocs for all the structs.
 ## struct Device
 ### Implementation:

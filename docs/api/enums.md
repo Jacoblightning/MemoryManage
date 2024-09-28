@@ -1,3 +1,7 @@
+---
+tags:
+  - API
+---
 # The APIdocs for all the enums.
 ## PermissionFlags
 ### Implementation:

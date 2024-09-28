@@ -1,3 +1,7 @@
+---
+tags:
+  - API
+---
 # The APIdocs for all the functions
 ### Unlike other APIdocs, the implementations are not in this file but [here](functiondefs.md).
 ## openProcess
@@ -22,7 +26,7 @@ ssize_t readMemoryByLength(
 ```
 ### [Implementation](functiondefs.md#readmemorybylength)
 ### Comments:
-Reads \<lengthToRead\> bytes of memory starting at address \<startAddress\> from the process id \<process\> and stores it in \<buffer\>
+Reads <lengthToRead\> bytes of memory starting at address <startAddress\> from the process id <process\> and stores it in <buffer\>
 
 
 ## readMemoryByStartAndEnd
@@ -37,7 +41,7 @@ ssize_t readMemoryByStartAndEnd(
 ```
 ### [Implementation](functiondefs.md#readmemorybystartandend)
 ### Comments:
-Reads memory starting at address \<startAddress\> and ending at address \<endAddress\> from the process id \<process\> and stores it in \<buffer\>
+Reads memory starting at address <startAddress\> and ending at address <endAddress\> from the process id <process\> and stores it in <buffer\>
 
 
 ## writeMemory
@@ -52,7 +56,7 @@ ssize_t writeMemory(
 ```
 ### [Implementation](functiondefs.md#writememory)
 ### Comments:
-Writes memory into process id \<process\> starting at address \<startAddress\> from \<buffer\> of length \<bufferLength\>
+Writes memory into process id <process\> starting at address <startAddress\> from <buffer\> of length <bufferLength\>
 
 
 ## fillMemoryWithByteByLength
@@ -69,7 +73,7 @@ ssize_t fillMemoryWithByteByLength(
 ### Comments:
 Memset for other processes
 
-Sets memory in process \<process\> starting at address \<startAddress\> going for \<lengthToWrite\> bytes to \<byteToFill\>
+Sets memory in process <process\> starting at address <startAddress\> going for <lengthToWrite\> bytes to <byteToFill\>
 
 
 ## fillMemoryWithByteByStartAndEnd
@@ -86,7 +90,7 @@ ssize_t fillMemoryWithByteByStartAndEnd(
 ### Comments:
 Like [fillMemoryWithByteByLength](functions.md#fillmemorywithbytebylength) but 2 clock cycles slower :)
 
-Sets memory in process \<process\> starting at address \<startAddress\> going to address \<endAddress\> bytes to \<byteToFill\>
+Sets memory in process <process\> starting at address <startAddress\> going to address <endAddress\> bytes to <byteToFill\>
 
 
 ## searchForMemory
@@ -102,7 +106,7 @@ uint64_t searchForMemory(
 ```
 ### [Implementation](functiondefs.md#searchformemory)
 ### Comments:
-Finds needle \<needle\> of length \<needleLength\> in process \<process\> memory starting at \<startAddress\> and ending at address \<endAddress\>
+Finds needle <needle\> of length <needleLength\> in process <process\> memory starting at <startAddress\> and ending at address <endAddress\>
 
 
 ## getProcessMaps
@@ -112,7 +116,7 @@ struct ProcessMaps* getProcessMaps(const process_t process);
 ```
 ### [Implementation](functiondefs.md#getprocessmaps)
 ### Comments:
-Gets the memory maps of process \<process\> and returns a [ProcessMaps struct](structs.md#struct-processmaps)
+Gets the memory maps of process <process\> and returns a [ProcessMaps struct](structs.md#struct-processmaps)
 
 
 ## freeMap
@@ -122,4 +126,4 @@ void freeMap(struct ProcessMaps *map);
 ```
 ### [Implementation](functiondefs.md#freemap)
 ### Comments:
-Frees [ProcessMaps](structs.md#struct-processmaps) \<map\>
+Frees [ProcessMaps](structs.md#struct-processmaps) <map\>

@@ -13,3 +13,4 @@ CMakeUserPresets.json
 /cmake-build-*/
 .debugging
 site/
+.cache

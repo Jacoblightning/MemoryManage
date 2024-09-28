@@ -1,3 +1,9 @@
+---
+hide:
+  - toc
+tags:
+  - UserDocs
+---
 # User Guide
 
 ### All of these examples require the inclusion of the `<MemoryManage/MemoryManage.h>` header.

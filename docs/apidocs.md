@@ -1,3 +1,7 @@
+---
+tags:
+  - API
+---
 # APIdocs
 ### This page holds all the types of APIdocs and links to them.
 
