@@ -1,4 +1,4 @@
-site_name: MemoryManager
+site_name: MemoryManage
 nav:
   - Home: index.md
   - Installation: installing.md
@@ -20,7 +20,7 @@ nav:
 markdown_extensions:
   - toc:
       permalink: true
-repo_url: https://github.com/Jacoblightning/MemoryManager
+repo_url: https://github.com/Jacoblightning/MemoryManage
 edit_uri: edit/main/docs/
 site_author: Jacob Freeman
 copyright: 'Copyright: None'

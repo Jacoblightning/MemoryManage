@@ -1,4 +1,4 @@
-# MemoryManager
+# MemoryManage
 
 [![Documentation Status](https://readthedocs.org/projects/memorymanage/badge/?version=latest)](https://memorymanage.readthedocs.io/en/latest/?badge=latest)
 
@@ -12,7 +12,7 @@ include(FetchContent)
 
 fetchcontent_declare(
         MemoryManage
-        GIT_REPOSITORY https://github.com/Jacoblightning/MemoryManager
+        GIT_REPOSITORY https://github.com/Jacoblightning/MemoryManage
         GIT_TAG main
 )
 fetchcontent_makeavailable(
@@ -28,8 +28,8 @@ target_link_libraries(<Your executable> PRIVATE MemoryManage<Static or Dynamic>)
 ## A normal C or C++ Project
 ##### Use git and install
 ```shell
-git clone https://github.com/Jacoblightning/MemoryManager
-cd MemoryManager
+git clone https://github.com/Jacoblightning/MemoryManage
+cd MemoryManage
 mkdir build
 cd build
 cmake ..
@@ -37,11 +37,11 @@ cmake --build .
 sudo cmake --install .
 ```
 ## The latest action
-### [Nightly.link (Just click here)](https://nightly.link/Jacoblightning/MemoryManager/workflows/cmake-single-platform-release/main)
+### [Nightly.link (Just click here)](https://nightly.link/Jacoblightning/MemoryManage/workflows/cmake-single-platform-release/main)
 ### Manually (Requires GitHub account)
-1. Go to the [Actions Page](https://github.com/Jacoblightning/MemoryManager/actions/workflows/cmake-single-platform-release.yml)
+1. Go to the [Actions Page](https://github.com/Jacoblightning/MemoryManage/actions/workflows/cmake-single-platform-release.yml)
 2. Click on the latest action
 3. Scroll to Artifacts and choose the one you want.
 ## GitHut Releases (Not Recommended)
-1. Go to [the latest release](https://github.com/Jacoblightning/MemoryManager/releases/latest)
+1. Go to [the latest release](https://github.com/Jacoblightning/MemoryManage/releases/latest)
 2. Download the one you want.
