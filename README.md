@@ -1,7 +1,7 @@
 # MemoryManager
 A C library for easy memory management of other processes. Could be used for process hacking and other fun things.
 # Installation
-## Another CMake Project (Reccomended)
+## Another CMake Project (Recommended)
 ##### Use FetchContent:
 ```cmake
 include(FetchContent)
@@ -32,3 +32,12 @@ cmake ..
 cmake --build .
 sudo cmake --install .
 ```
+## The latest action
+### [Nightly.link (Just click here)](https://nightly.link/Jacoblightning/MemoryManager/workflows/cmake-single-platform-release/main)
+### Manually (Requires GitHub account)
+1. Go to the [Actions Page](https://github.com/Jacoblightning/MemoryManager/actions/workflows/cmake-single-platform-release.yml)
+2. Click on the latest action
+3. Scroll to Artifacts and choose the one you want.
+## GitHut Releases (Not Recommended)
+1. Go to [the latest release](https://github.com/Jacoblightning/MemoryManager/releases/latest)
+2. Download the one you want.
