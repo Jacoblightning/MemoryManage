@@ -10,6 +10,9 @@ add_executable(MemoryManageOtherStaticWriteByteFillTested testOtherTarget.c)
 add_executable(MemoryManageOtherDynamicWriteByteFillTester testOther.c)
 add_executable(MemoryManageOtherDynamicWriteByteFillTested testOtherTarget.c)
 
+# IKD what but gcc does something to this file.
+set_source_files_properties(testOtherTarget.c PROPERTIES COMPILE_FLAGS "-O0")
+
 target_link_libraries(MemoryManageOtherStaticWriteByteFillTester MemoryManageStatic)
 target_link_libraries(MemoryManageOtherDynamicWriteByteFillTester MemoryManageShared)
 
