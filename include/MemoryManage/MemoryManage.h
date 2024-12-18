@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Enable GNU Extensions
 #define _GNU_SOURCE
 #include <sys/uio.h>
@@ -90,3 +94,7 @@ uint64_t searchForMemory(
     uint64_t startAddress,
     uint64_t endAddress
     );
+
+#ifdef __cplusplus
+}
+#endif 
