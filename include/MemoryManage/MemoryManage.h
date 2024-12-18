@@ -5,7 +5,10 @@ extern "C" {
 #endif
 
 // Enable GNU Extensions
+#ifndef _GNU_SOURCE
 #define _GNU_SOURCE
+#endif
+
 #include <sys/uio.h>
 #include <stdint.h>
 
