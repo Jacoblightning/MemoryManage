@@ -1,8 +1,8 @@
 add_executable(MemoryManageSelfDynamicSearchTester testSame.c)
 add_executable(MemoryManageSelfStaticSearchTester testSame.c)
 
-target_link_libraries(MemoryManageSelfDynamicSearchTester MemoryManageShared)
-target_link_libraries(MemoryManageSelfStaticSearchTester MemoryManageDynamic)
+target_link_libraries(MemoryManageSelfStaticSearchTester MemoryManageStatic)
+target_link_libraries(MemoryManageSelfDynamicSearchTester MemoryManageDynamic)
 
 add_test(NAME TestSelfDynamicSearch COMMAND $<TARGET_FILE:MemoryManageSelfDynamicSearchTester>)
 add_test(NAME TestSelfStaticSearch COMMAND $<TARGET_FILE:MemoryManageSelfStaticSearchTester>)
