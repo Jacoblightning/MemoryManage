@@ -5,15 +5,14 @@ set(CMAKE_C_STANDARD 17)
 
 include(CMakeDependentOption)
 
-if (EXISTS ${CMAKE_SOURCE_DIR}/.debugging)
-    set(BUILD_TESTS ON)
-endif ()
-
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     option(BUILD_TESTS "Whether or not tests should be built" OFF)
+    cmake_dependent_option(BUILD_STATIC_LIBS "Build the static library" OFF "NOT BUILD_TESTS" ON)
+    cmake_dependent_option(BUILD_SHARED_LIBS "Build the shared library" ON "BUILD_STATIC_LIBS;NOT BUILD_TESTS" ON)
+else ()
+    set(BUILD_SHARED_LIBS ON)
+    set(BUILD_STATIC_LIBS ON)
 endif ()
-cmake_dependent_option(BUILD_STATIC_LIBS "Build the static library" OFF "NOT BUILD_TESTS" ON)
-cmake_dependent_option(BUILD_SHARED_LIBS "Build the shared library" ON "BUILD_STATIC_LIBS;NOT BUILD_TESTS" ON)
 
 #cmake_dependent_option(RUN_TEMPERAMENTAL_TEST "Run test 11 which does not work on github actions for some reason." ON "BUILD_TESTS" OFF)
 

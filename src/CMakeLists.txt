@@ -17,16 +17,16 @@ if (BUILD_STATIC_LIBS)
     )
 endif ()
 if (BUILD_SHARED_LIBS)
-    set(U2 "MemoryManageShared")
-    add_library(MemoryManageShared SHARED ${SOURCES})
+    set(U2 "MemoryManageDynamic")
+    add_library(MemoryManageDynamic SHARED ${SOURCES})
 
-    set_target_properties(MemoryManageShared PROPERTIES
+    set_target_properties(MemoryManageDynamic PROPERTIES
             PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include/MemoryManage/MemoryManage.h
             OUTPUT_NAME MemoryManage
     )
 
 
-    target_include_directories(MemoryManageShared PUBLIC
+    target_include_directories(MemoryManageDynamic PUBLIC
             $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
             $<INSTALL_INTERFACE:include>
     )
