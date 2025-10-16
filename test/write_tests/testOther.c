@@ -8,7 +8,7 @@
 
 int main(const int argc, char **argv) {
     if (argc != 2) {
-        error("This was a CMake failure and not a program failure.\n");
+        error("\nThis was a CMake failure and not a program failure.\n");
         return 1;
     }
     printf("Opening %s\n", argv[1]);
@@ -18,14 +18,14 @@ int main(const int argc, char **argv) {
     printf("Processing %s\n", argv[1]);
     fflush(stdout);
     if (!target) {
-        error("This was an OS failure and not a program failure.\n");
+        error("\nThis was an OS failure and not a program failure.\n");
         return 1;
     }
     int pid;
     long long int memory;
     char buffer[1024];
     if (fgets(buffer, sizeof buffer, target) == NULL) {
-        error("Failed to read from command output.\n");
+        error("\nFailed to read from command output.\n");
         return 1;
     }
 
@@ -35,10 +35,10 @@ int main(const int argc, char **argv) {
 
     const process_t process = openProcess(pid);
     if (!process) {
-        error("Could not find process.\n");
+        error("\nCould not find process.\n");
     }
     int newval = 8675309;
-    printf("Attempting to write memory at address: %lld\n", memory);
+    printf("\nAttempting to write memory at address: %lld\n", memory);
     fflush(stdout);
 
     if (writeMemory(process, memory, &newval, sizeof newval)==-1) {
@@ -46,18 +46,18 @@ int main(const int argc, char **argv) {
         kill(process, SIGKILL);
         return 1;
     }
-    printf("Memory written. Waiting for OK from child.\n");
+    printf("\nMemory written. Waiting for OK from child.\n");
     fflush(stdout);
     char result[3]; // 1,\n,\0
     if (fgets(buffer, sizeof buffer, target) == NULL) {
-        error("Failed to read from command output.\n");
+        error("\nFailed to read from command output.\n");
         return 1;
     }
     kill(process, SIGKILL);
     if (buffer[0] != '1') {
-        fprintf(stderr, "Did not get OK from child process.\n");
+        fprintf(stderr, "\nDid not get OK from child process.\n");
         return 1;
     }
-    printf("OK Received from child.\n");
+    printf("\nOK Received from child.\n");
     return 0;
 }
