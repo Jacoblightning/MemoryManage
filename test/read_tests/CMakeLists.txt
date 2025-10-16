@@ -2,7 +2,7 @@ add_executable(MemoryManageStaticReadTester testSame.c)
 add_executable(MemoryManageDynamicReadTester testSame.c)
 
 target_link_libraries(MemoryManageStaticReadTester MemoryManageStatic)
-target_link_libraries(MemoryManageDynamicReadTester MemoryManageShared)
+target_link_libraries(MemoryManageDynamicReadTester MemoryManageDynamic)
 
 
 add_executable(MemoryManageOtherStaticReadTester testOther.c)
@@ -11,7 +11,7 @@ add_executable(MemoryManageOtherDynamicReadTester testOther.c)
 add_executable(MemoryManageOtherDynamicReadTested testOtherTarget.c)
 
 target_link_libraries(MemoryManageOtherStaticReadTester MemoryManageStatic)
-target_link_libraries(MemoryManageOtherDynamicReadTester MemoryManageShared)
+target_link_libraries(MemoryManageOtherDynamicReadTester MemoryManageDynamic)
 
 
 
